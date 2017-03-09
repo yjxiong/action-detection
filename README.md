@@ -6,6 +6,7 @@ This repo will hold the codes and models for the Arxiv report
 
 > 
 **A Pursuit for Temporal Accuracy in General Activity Detection**
+>
 Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
 >
 
