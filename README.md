@@ -33,7 +33,7 @@ Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
 | MAP@0.5  |    40.69|
 | MAP@0.75 |    26.02|
 | MAP@0.95 |    6.67  |
-| Average Map (0.5:0.05:0.95)  |    26.05  |
+| Average MAP (0.5:0.05:0.95)  |    26.05  |
 
 
 ***
