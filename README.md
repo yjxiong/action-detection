@@ -4,10 +4,8 @@
 
 This repo will hold the codes and models for the Arxiv report
 
-> 
-**A Pursuit of Temporal Accuracy in General Activity Detection**
->
-Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
+> **A Pursuit of Temporal Accuracy in General Activity Detection**
+> Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
 >
 
 [[Arxiv link]](https://arxiv.org/abs/1703.02716)
@@ -16,7 +14,7 @@ Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
 ***
 
 
-###Temporal Action Detection Performance
+### Temporal Action Detection Performance
 
 
 | Dataset  | THUMOS14 |
@@ -38,6 +36,6 @@ Yuanjun Xiong, Yue Zhao, Limin Wang, Dahua Lin, and Xiaoou Tang
 
 ***
 
-###Codes & Models
+### Codes & Models
  
 Coming soon...
