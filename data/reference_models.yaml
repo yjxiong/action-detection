@@ -1,0 +1,31 @@
+thumos14:
+  ImageNet:
+    BNInception:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_thumos14_bninception_rgb-74e71b25d64a.pth.tar
+      Flow: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_thumos14_bninception_flow-dfe7aba61375.pth.tar
+    InceptionV3:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_thumos14_inceptionv3_rgb-20e223da6fb7.pth.tar
+      Flow: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_thumos14_inceptionv3_flow-918f932dd160.pth.tar
+  Kinetics:
+    BNInception:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_kinetics_reference_thumos14_bninception_rgb-9864666d118b.pth.tar
+      Flow: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_kinetics_reference_thumos14_bninception_flow-d4974e0142ea.pth.tar
+    InceptionV3:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_kinetics_reference_thumos14_inceptionv3_rgb-22568ca50690.pth.tar
+      Flow: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_kinetics_reference_thumos14_inceptionv3_flow-e09c5c9cd1ee.pth.tar
+  
+activitynet1.2:
+  ImageNet:
+    BNInception:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_activitynet1.2_bninception_rgb-e2fd10a6c6b0.pth.tar
+      Flow: https://yjxiong.blob.core.windows.net/ssn-reference-models/ssn_reference_activitynet1.2_bninception_flow-dfcdda9fe1f5.pth.tar
+#    InceptionV3:
+#      RGB:
+#      Flow:
+#  Kinetics:
+#    BNInception:
+#      RGB:
+#      Flow:
+#    InceptionV3:
+#      RGB:
+#      Flow: 
