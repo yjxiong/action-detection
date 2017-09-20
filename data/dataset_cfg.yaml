@@ -55,6 +55,7 @@ activitynet1.2:
 
   flow_init:
     BNInception: https://yjxiong.blob.core.windows.net/ssn-models/bninception_activitynet1.2_flow_init-0090e716bd1563.pth
+    InceptionV3: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_activitynet1.2_flow_init-cd9437aaedfb.pth
   kinetics_pretrain:
     BNInception:
       RGB: https://yjxiong.blob.core.windows.net/ssn-models/bninception_rgb_kinetics_init-d4ee618d3399.pth
