@@ -52,7 +52,7 @@ def main():
     else:
         # standard ImageNet pretraining
         if args.modality == 'Flow':
-            model_url = dataset_configs['flow_pretrain'][args.arch]
+            model_url = dataset_configs['flow_init'][args.arch]
             model.base_model.load_state_dict(model_zoo.load_url(model_url)['state_dict'])
             print(("=> loaded flow init weights from '{}'"
                    .format(model_url)))
