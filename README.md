@@ -248,7 +248,7 @@ These results can also be found on the [project website][ssn]. You can download
 |-----------------------------------|-------|-------|----------|
 | BNInception                       | 24.85 | 21.69 | 26.75    |
 | BNInception (Kinetics Pretrained) | 27.53 | 28.0  | 28.57    |
-| InceptionV3                       |       |       |          |
+| InceptionV3                       | 25.75 | 22.44 | 27.82    |
 | InceptionV3 (Kinetics Pretrained) |       |       |          |
 
 # Other Info
