@@ -91,7 +91,7 @@ temporal action detection: THUMOS14 & ActivityNet v1.2. Here are some steps to d
 - THUMOS14: We need the validation videos for training and testing videos for testing. 
 You can download them from the [THUMOS14 challenge website][thumos14].
 - ActivityNet v1.2: this dataset is provided in the form of YouTube URL list. 
-You can use the [official ActivityNet downloader][anet] to download videos from the YouTube. 
+You can use the [official ActivityNet downloader][anet_down] to download videos from the YouTube. 
 
 After downloading the videos for each dataset, unzip them in a folder `SRC_FOLDER`.
 
@@ -303,7 +303,7 @@ Yuanjun Xiong: bitxiong@gmail.com
 [custom guide]:https://github.com/yjxiong/temporal-segment-networks/wiki/Working-on-custom-datasets.
 [thumos14]:http://crcv.ucf.edu/THUMOS14/download.html
 [tsn]:https://github.com/yjxiong/temporal-segment-networks
-[anet]:https://github.com/activitynet/ActivityNet/tree/master/Crawler
+[anet_down]:https://github.com/activitynet/ActivityNet/tree/master/Crawler
 [map]:http://homepages.inf.ed.ac.uk/ckiw/postscript/ijcv_voc09.pdf
 [action_kinetics]:http://yjxiong.me/others/kinetics_action/
 [pytorch]:https://github.com/pytorch/pytorch
