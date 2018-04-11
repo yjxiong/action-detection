@@ -133,6 +133,51 @@ python gen_proposal_list.py DATASET FRAMES_PATH
 ```
 
 
+## Train TAG models
+Due to a large amount of inquiry for the training of TAG, we provide the following procedures to train binary actionness classifiers and generate proposals.
+
+### Generate sliding window proposals 
+First of all, we generate a series of sliding-window proposals.
+
+- THUMOS14
+```bash
+python gen_sliding_window_proposals.py validation rgb FRAME_PATH thumos14_sw_val_proposal_list.txt --dataset thumos14 
+python gen_sliding_window_proposals.py testing rgb FRAME_PATH thumos14_sw_test_proposal_list.txt --dataset thumos14 
+```
+
+- ActivityNet v1.2
+```bash
+python gen_sliding_window_proposals.py training rgb FRAME_PATH activitynet_v1.2_sw_train_proposal_list.txt --dataset activitynet --version 1.2
+python gen_sliding_window_proposals.py validation rgb FRAME_PATH activitynet1.2_sw_val_proposal_list.txt --dataset activitynet --version 1.2
+```
+
+
+### Training binary actionness classifier
+Using the above proposals, we can train a binary actionness classifier.
+
+```bash
+python binary_train.py thumos14 MODALITY -b 16 --lr_steps 20 40 --epochs 45 
+```
+
+or
+
+```bash
+python binary_train.py activitynet1.2 MODALITY -b 16 --lr_steps 3 6 --epochs 7 
+```
+
+### Obtaining actionness score
+
+```bash
+python binary_test.py DATASET MODALITY TRAINING_CHECKPOINT ACTIONNESS_RESULT_PICKLE 
+```
+
+### Generating TAG proposals
+```bash
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset DATASET --subset SUBSET  --write_proposals TAG_PROPOSALS
+``` 
+
+where `ACTIONNESS_RESULTS_PICKLE` can be multiple (e.g. actionness predicted from both streams)
+
 ## Testing Trained Models
 [[back to top](#temporal-action-detection-with-structured-segment-networks)]
 
