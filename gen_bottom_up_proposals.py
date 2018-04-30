@@ -11,7 +11,6 @@ import multiprocessing as mp
 from utils.sequence_funcs import *
 from utils.anet_db import ANetDB
 from utils.thumos_db import THUMOSDB 
-import pdb
 from utils.detection_metrics import get_temporal_proposal_recall, name_proposal
 from utils.sequence_funcs import temporal_nms
 from ops.io import dump_window_list
@@ -153,7 +152,6 @@ def call_back(rst):
 
 pool = mp.Pool(processes = 32)
 lst = []
-pdb.set_trace()
 handle = [pool.apply_async(gen_prop, args=(x, ), callback=call_back) for x in video_list]
 pool.close()
 pool.join()
