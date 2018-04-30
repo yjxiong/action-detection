@@ -9,13 +9,12 @@ import time
 import pickle
 import multiprocessing as mp
 from utils.sequence_funcs import *
-
 from utils.anet_db import ANetDB
 from utils.thumos_db import THUMOSDB 
-
+import pdb
 from utils.detection_metrics import get_temporal_proposal_recall, name_proposal
 from utils.sequence_funcs import temporal_nms
-from utils.io import dump_window_list
+from ops.io import dump_window_list
 
 parser = argparse.ArgumentParser()
 parser.add_argument('score_files', type=str, nargs='+')
@@ -93,7 +92,6 @@ for key in score_list[0].keys():
     score_dict[key] = out_score
 print('done')
 
-
 # merge regression scores
 if reg_score_list is not None:
     print('merging regression scores')
@@ -125,21 +123,12 @@ def gen_prop(v):
     scores = score_dict[vid]
     frm_duration = len(scores)
     topk_cls = [0]
-
     topk_labels = label_frame_by_threshold(scores, topk_cls, bw=3, thresh=[0.01, 0.05, 0.1, .15, 0.25, .4, .5, .6, .7, .8, .9, .95, ], multicrop=False)
-    # topk_labels = label_frame_by_threshold(scores, topk_cls, bw=3,
-    #                                        thresh=np.arange(0.01, 1.01, 0.05),
-    #                                        multicrop=False)
 
     bboxes = []
     tol_lst = [0.05, .1, .2, .3, .4, .5, .6, 0.8, 1.0]
-    # tol_lst = np.arange(0.05, 1.01, 0.1)
-    # for tol in tol_lst:
-    #     bboxes.extend(build_box_from_multilabel(topk_labels, tol))
 
     bboxes.extend(build_box_by_search(topk_labels, np.array(tol_lst)))
-    # bboxes.extend(build_box_from_hard_label(topk_labels, np.array(tol_lst)))
-#    print(bboxes)
     if reg_score_dict:
         reg_scores = reg_score_dict[score_id]
         bboxes = regress_box(bboxes, reg_scores, len(scores))
@@ -152,7 +141,6 @@ def gen_prop(v):
 
     # filter out too short proposals
     pr_box = list(filter(lambda b: b[1] - b[0] > args.minimum_len, pr_box))
-
     return v.id, pr_box, [x[3] for x in bboxes]
 
 
@@ -165,16 +153,15 @@ def call_back(rst):
 
 pool = mp.Pool(processes = 32)
 lst = []
+pdb.set_trace()
 handle = [pool.apply_async(gen_prop, args=(x, ), callback=call_back) for x in video_list]
 pool.close()
 pool.join()
-# map(gen_prop, video_list)
 
 # evaluate proposal info
 proposal_list = [pr_dict[v.id] for v in video_list if v.id in pr_dict]
 gt_spans_full = [[(x.num_label, x.time_span) for x in v.instances] for v in video_list if v.id in pr_dict]
 gt_spans = [[item[1] for item in x] for x in gt_spans_full]
-#gt_spans = np.array(gt_spans) / 5.0
 score_list = [score_dict[v.id] for v in video_list if v.id in pr_dict]
 duration_list = [v.duration for v in video_list if v.id in pr_dict]
 proposal_score_list = [pr_score_dict[v.id] for v in video_list if v.id in pr_dict]
@@ -183,7 +170,7 @@ print('{} groundtruth boxes from'.format(sum(map(len, gt_spans))))
 
 
 print('average # of proposals: {}'.format(np.mean(list(map(len, proposal_list)))))
-IOU_thresh = np.arange(0.5, 1, 0.05)
+IOU_thresh = np.arange(0.5, 1, 0.2)
 p_list = []
 for th in IOU_thresh:
     pv, pi = get_temporal_proposal_recall(proposal_list, gt_spans, th)
