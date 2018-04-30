@@ -34,41 +34,6 @@ def label_frame_by_threshold(score_mat, cls_lst, bw=None, thresh=list([0.05]), m
     return rst
 
 
-def build_box_from_multilabel(frm_label_lst, neg_tol=.7, neg_cnt_tol=None):
-    boxes = []
-    for cls, frm_labels, frm_scores in frm_label_lst:
-
-        state = 0
-        pos_cnt = 0
-        neg_cnt = 0
-
-        st = 0
-        ed = 0
-
-        for i in range(len(frm_labels)):
-            l = frm_labels[i]
-            if l == 1:
-                if state == 0:
-                    state = 1
-                    pos_cnt = 1
-                    neg_cnt = 0
-                    st = i
-                    ed = i
-                else:
-                    pos_cnt += 1
-                    ed = i
-            else:
-                if state == 1:
-                    neg_cnt += 1
-                    if (neg_cnt / float(i - st) >= neg_tol) or (neg_cnt_tol and neg_cnt > neg_cnt_tol):
-                        # throw a box
-                        boxes.append((st, ed + 1, cls, sum(frm_scores[st:ed + 1])))
-                        state = 0
-        if state == 1:
-            boxes.append((st, ed + 1, cls, sum(frm_scores[st:ed + 1])))
-    return boxes
-
-
 def gen_exponential_sw_proposal(video_info, time_step=1, max_level=8, overlap=0.4):
     spans = [2 ** x for x in range(max_level)]
     duration = video_info.duration
@@ -131,71 +96,6 @@ def temporal_nms_fallback(bboxes, thresh, score_ind=3):
 
     return [bboxes[i] for i in keep]
 
-
-def build_proposal_by_prob(score_mat, thresh=0.5, multicrop=False):
-    """
-    Build frame labels
-    :param score_mat:
-    :param cls_lst:
-    :param bw:
-    :param thresh:
-    :param multicrop:
-    :return:
-    """
-    if multicrop:
-        f_score = score_mat.mean(axis=1)
-    else:
-        f_score = score_mat
-
-    print(f_score)
-
-    ss = np.log(softmax(f_score))
-
-    fg = ss[:, 1]
-
-    cs = np.cumsum(fg)
-
-    print(np.nonzero(softmax(f_score)[:, 1] > 0.5))
-
-    rst = []
-    for x in range(len(cs)):
-        for y in range(x, len(cs)):
-            p = np.exp((cs[y] - (cs[x-1] if x > 0 else 0))/ (y - x + 1))
-            if p > thresh:
-                rst.append((x, y, 0, p))
-    return rst
-
-
-def build_box_from_hard_label(frm_label_lst, tol, min=1):
-    boxes = []
-    for cls, frm_labels, frm_scores in frm_label_lst:
-        length = len(frm_labels)
-        edge = np.zeros(length)
-        edge[1:] = frm_labels[1:] - frm_labels[:-1]
-        cs = np.cumsum(1 - frm_labels)
-        offset = np.arange(0, length, 1)
-        for i, t in enumerate(tol):
-            signal = cs - t * offset
-            p = 0
-            s = t
-            while p < length - 1:
-                if frm_labels[p] == 1:
-                    q = p + min
-                    r = q
-                    while q < length and (frm_labels[q] == 1 or signal[q] < s):
-                        if frm_labels[q] == 1:
-                            r = q
-                        q += 1
-                    boxes.append((p, r+1, cls, sum(frm_scores[p:r+1])))
-                    p = q + 1
-                    if p < length:
-                        s = signal[p - 1]
-                else:
-                    p += 1
-
-                    s = signal[p - 1]
-
-    return boxes
 
 
 def build_box_by_search(frm_label_lst, tol, min=1):
