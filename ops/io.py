@@ -10,7 +10,7 @@ def load_proposal_file(filename):
     groups = groupby(lines, lambda x: x.startswith('#'))
 
     info_list = [[x.strip() for x in list(g)] for k, g in groups if not k]
-
+    
     def parse_group(info):
         offset = 0
         vid = info[offset]
@@ -22,7 +22,8 @@ def load_proposal_file(filename):
 
         gt_boxes = [x.split() for x in info[offset:offset+n_gt]]
         offset += n_gt
-
+        if n_gt == 0:
+            offset += 1
         n_pr = int(info[offset])
         offset += 1
         pr_boxes = [x.split() for x in info[offset:offset+n_pr]]
@@ -92,3 +93,44 @@ def parse_directory(path, key_func=lambda x: x[-11:],
 
     print('frame folder analysis done')
     return frame_dict
+
+def dump_window_list(video_info, named_proposals, frame_path, name_pattern, allow_empty=False, score=None):
+
+    # first count frame numbers
+    try:
+        video_name = video_info.path.split('/')[-1].split('.')[0]
+        files = glob.glob(os.path.join(frame_path, video_name, name_pattern))
+        frame_cnt = len(files)
+    except:
+        if allow_empty:
+            frame_cnt = score.shape[0] * 6
+            video_name = video_info.id
+        else:
+            raise
+
+    # convert time to frame number
+    real_fps = float(frame_cnt) / video_info.duration
+
+    # get groundtruth windows
+    gt_w = [(x.num_label, x.time_span) for x in video_info.instance]
+    gt_windows = [(x[0]+1, int(x[1][0] * real_fps), int(x[1][1] * real_fps)) for x in gt_w]
+
+    dump_gt = []
+    for gt in gt_windows:
+        dump_gt.append('{} {} {}'.format(*gt))
+
+    dump_proposals = []
+    for pr in named_proposals:
+        real_start = int(pr[3] * real_fps)
+        real_end = int(pr[4] * real_fps)
+        label = pr[0]
+        overlap = pr[1]
+        overlap_self = pr[2]
+        dump_proposals.append('{} {:.04f} {:.04f} {} {}'.format(label, overlap, overlap_self, real_start, real_end))
+
+    ret_str = '{path}\n{duration}\n{fps}\n{num_gt}\n{gts}\n{num_window}\n{prs}\n'.format(
+        path=os.path.join(frame_path, video_name), duration=frame_cnt, fps=1,
+        num_gt=len(dump_gt), gts='\n'.join(dump_gt),
+        num_window=len(dump_proposals), prs='\n'.join(dump_proposals))
+
+    return ret_str
