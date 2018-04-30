@@ -5,7 +5,7 @@ import multiprocessing
 import argparse
 from utils.detection_metrics import get_temporal_proposal_recall, name_proposal
 from utils.sequence_funcs import gen_exponential_sw_proposal
-from utils.io import dump_window_list
+from ops.io import dump_window_list
 
 
 parser = argparse.ArgumentParser(description="Make window file used for detection")
