@@ -1,7 +1,7 @@
 thumos14:
   train_list: thumos14_sw_val
   test_list: thumos14_sw_test
-  num_class: 20
+  num_class: 2
   sampling:
     fg_iou_thresh: 0.7
     bg_iou_thresh: 0.01
