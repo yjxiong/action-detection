@@ -14,18 +14,15 @@ from binary_model import BinaryClassifier
 from transforms import *
 from ops.utils import get_actionness_configs
 from torch.utils import model_zoo
-from ssn_dataset import SSNDataSet
-
 best_loss = 100
 
 def main():
     global args, best_loss
     args = parser.parse_args()
     dataset_configs = get_actionness_configs(args.dataset)
-    num_class = 2
     sampling_configs = dataset_configs['sampling']
+    num_class = dataset_configs['num_class']
     args.dropout = 0.8
-
     if args.modality == 'RGB':
         data_length = 1
     elif args.modality in ['Flow','RGBDiff']:
