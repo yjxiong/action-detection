@@ -15,11 +15,12 @@ global args
 parser = argparse.ArgumentParser(description = 'extract actionnes score')
 parser.add_argument('dataset', type=str, choices=['activitynet1.2', 'thumos14'])
 parser.add_argument('modality', type=str, choices=['RGB', 'Flow', 'RGBDiff'])
+parser.add_argument('subset', type=str, choices=['training','validation','testing'])
 parser.add_argument('weights', type=str)
 parser.add_argument('save_scores', type=str)
 parser.add_argument('--arch', type=str, default='BNInception')
 parser.add_argument('--save_raw_scores', type=str, default=None)
-parser.add_argument('--frame_interval', type=int, default=1)
+parser.add_argument('--frame_interval', type=int, default=5)
 parser.add_argument('--test_batchsize', type=int, default=512)
 parser.add_argument('--max_num', type=int, default=-1)
 parser.add_argument('--test_crops', type=int, default=10)
@@ -34,9 +35,19 @@ parser.add_argument('--use_kinetics_reference', default=False, action='store_tru
 args = parser.parse_args()
 
 dataset_configs = get_actionness_configs(args.dataset)
-num_class = 2
+num_class = dataset_configs['num_class']
 
-test_prop_file = 'data/{}_proposal_list.txt'.format(dataset_configs['test_list'])
+if args.dataset == 'thumos14':
+    if args.subset == 'validation':
+        test_prop_file = 'data/{}_proposal_list.txt'.format(dataset_configs['train_list'])
+    elif args.subset == 'testing':
+        test_prop_file = 'data/{}_proposal_list.txt'.format(dataset_configs['test_list'])
+elif args.dataset == 'activitynet1.2':
+    if args.subset == 'training':
+        test_prop_file = 'data/{}_proposal_list.txt'.format(dataset_configs['train_list'])
+    elif args.subset == 'validation':    
+        test_prop_file = 'data/{}_proposal_list.txt'.format(dataset_configs['test_list'])
+
 
 if args.modality == 'RGB':
     data_length = 1
@@ -87,7 +98,6 @@ def runner_func(dataset, state_dict, gpu_id, index_queue, result_queue):
 if __name__ == '__main__':
 
     ctx = multiprocessing.get_context('spawn')
-
     net = BinaryClassifier(num_class, 5,
                            args.modality,
                            base_model=args.arch)
@@ -114,7 +124,6 @@ if __name__ == '__main__':
 
     print("model epoch {} loss: {}".format(checkpoint['epoch'], checkpoint['best_loss']))
     base_dict = {'.'.join(k.split('.')[1:]): v for k, v in list(checkpoint['state_dict'].items())}
-    
     dataset = BinaryDataSet("", test_prop_file,
                             new_length=data_length,
                             modality=args.modality,
@@ -136,9 +145,6 @@ if __name__ == '__main__':
     del net
 
     max_num = args.max_num if args.max_num > 0 else len(dataset)
-
-#    for i in range(10):
-#        index_queue.put(i)
 
 
     for i in range(max_num):
