@@ -141,14 +141,14 @@ First of all, we generate a series of sliding-window proposals.
 
 - THUMOS14
 ```bash
-python gen_sliding_window_proposals.py validation rgb FRAME_PATH thumos14_sw_val_proposal_list.txt --dataset thumos14 
-python gen_sliding_window_proposals.py testing rgb FRAME_PATH thumos14_sw_test_proposal_list.txt --dataset thumos14 
+python gen_sliding_window_proposals.py validation rgb FRAME_PATH data/thumos14_sw_val_proposal_list.txt --dataset thumos14 
+python gen_sliding_window_proposals.py testing rgb FRAME_PATH data/thumos14_sw_test_proposal_list.txt --dataset thumos14 
 ```
 
 - ActivityNet v1.2
 ```bash
-python gen_sliding_window_proposals.py training rgb FRAME_PATH activitynet_v1.2_sw_train_proposal_list.txt --dataset activitynet --version 1.2
-python gen_sliding_window_proposals.py validation rgb FRAME_PATH activitynet1.2_sw_val_proposal_list.txt --dataset activitynet --version 1.2
+python gen_sliding_window_proposals.py training rgb FRAME_PATH data/activitynet_v1.2_sw_train_proposal_list.txt --dataset activitynet --version 1.2
+python gen_sliding_window_proposals.py validation rgb FRAME_PATH data/activitynet1.2_sw_val_proposal_list.txt --dataset activitynet --version 1.2
 ```
 
 
@@ -168,12 +168,12 @@ python binary_train.py activitynet1.2 MODALITY -b 16 --lr_steps 3 6 --epochs 7
 ### Obtaining actionness score
 
 ```bash
-python binary_test.py DATASET MODALITY TRAINING_CHECKPOINT ACTIONNESS_RESULT_PICKLE 
+python binary_test.py DATASET MODALITY SUBSET TRAINING_CHECKPOINT ACTIONNESS_RESULT_PICKLE 
 ```
 
 ### Generating TAG proposals
 ```bash
-python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset DATASET --subset SUBSET  --write_proposals TAG_PROPOSALS
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset DATASET --subset SUBSET  --write_proposals TAG_PROPOSALS  --frame_path FRAME_PATH
 ``` 
 
 where `ACTIONNESS_RESULTS_PICKLE` can be multiple (e.g. actionness predicted from both streams)
