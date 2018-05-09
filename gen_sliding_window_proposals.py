@@ -1,10 +1,10 @@
-from utils.anet_db import ANetDB
-from utils.thumos_db import THUMOSDB
+from ops.anet_db import ANetDB
+from ops.thumos_db import THUMOSDB
 import numpy as np
 import multiprocessing
 import argparse
-from utils.detection_metrics import get_temporal_proposal_recall, name_proposal
-from utils.sequence_funcs import gen_exponential_sw_proposal
+from ops.detection_metrics import get_temporal_proposal_recall, name_proposal
+from ops.sequence_funcs import gen_exponential_sw_proposal
 from ops.io import dump_window_list
 
 
