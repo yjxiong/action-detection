@@ -2,7 +2,7 @@
 local/
 
 # data files
-data/
+# data/
 
 # model folder
 models/
