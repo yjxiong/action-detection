@@ -8,13 +8,12 @@ from sklearn.metrics import confusion_matrix
 import time
 import pickle
 import multiprocessing as mp
-from utils.sequence_funcs import *
-from utils.anet_db import ANetDB
-from utils.thumos_db import THUMOSDB 
-from utils.detection_metrics import get_temporal_proposal_recall, name_proposal
-from utils.sequence_funcs import temporal_nms
+from ops.sequence_funcs import *
+from ops.anet_db import ANetDB
+from ops.thumos_db import THUMOSDB 
+from ops.detection_metrics import get_temporal_proposal_recall, name_proposal
+from ops.sequence_funcs import temporal_nms
 from ops.io import dump_window_list
-
 parser = argparse.ArgumentParser()
 parser.add_argument('score_files', type=str, nargs='+')
 parser.add_argument("--anet_version", type=str, default='1.2', help='')
@@ -85,7 +84,7 @@ for key in score_list[0].keys():
             out_score = out_score[:add_score.shape[0], :]
         elif add_score.shape[0] > out_score.shape[0]:
             tick = add_score.shape[0] / float(out_score.shape[0])
-            indices = [int(x * tick) for x in xrange(out_score.shape[0])]
+            indices = [int(x * tick) for x in range(out_score.shape[0])]
             add_score = add_score[indices, :]
         out_score += add_score * (1.0 if args.score_weights is None else args.score_weights[i])
     score_dict[key] = out_score
@@ -175,7 +174,6 @@ for th in IOU_thresh:
     print('IOU threshold {}. per video recall: {:02f}, per instance recall: {:02f}'.format(th, pv * 100, pi * 100))
     p_list.append((pv, pi))
 print('Average Recall: {:.04f} {:.04f}'.format(*(np.mean(p_list, axis=0)*100)))
-
 
 if args.write_proposals:
 
