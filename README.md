@@ -147,7 +147,7 @@ python gen_sliding_window_proposals.py testing rgb FRAME_PATH data/thumos14_sw_t
 
 - ActivityNet v1.2
 ```bash
-python gen_sliding_window_proposals.py training rgb FRAME_PATH data/activitynet_v1.2_sw_train_proposal_list.txt --dataset activitynet --version 1.2
+python gen_sliding_window_proposals.py training rgb FRAME_PATH data/activitynet1.2_sw_train_proposal_list.txt --dataset activitynet --version 1.2
 python gen_sliding_window_proposals.py validation rgb FRAME_PATH data/activitynet1.2_sw_val_proposal_list.txt --dataset activitynet --version 1.2
 ```
 
@@ -172,15 +172,15 @@ python binary_test.py DATASET MODALITY SUBSET TRAINING_CHECKPOINT ACTIONNESS_RES
 ```
 
 ### Generating TAG proposals
-thumos14
+THUMOS14
 ```bash
 python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset thumos14 --subset validation  --write_proposals data/thumos14_tag_val_proposal_list.txt  --frame_path FRAME_PATH
 python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset thumos14 --subset testing  --write_proposals data/thumos14_tag_test_proposal_list.txt  --frame_path FRAME_PATH
 ``` 
-Activitynet1.2
+ActivityNet1.2
 ```bash
-python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet1.2 --subset training  --write_proposals data/activitynet1.2_tag_train_proposal_list.txt  --frame_path FRAME_PATH
-python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet1.2 --subset validation  --write_proposals data/activitynet1.2_tag_val_proposal_list.txt  --frame_path FRAME_PATH
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet --subset training  --write_proposals data/activitynet1.2_tag_train_proposal_list.txt  --frame_path FRAME_PATH
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet --subset validation  --write_proposals data/activitynet1.2_tag_val_proposal_list.txt  --frame_path FRAME_PATH
 ```
 
 where `ACTIONNESS_RESULTS_PICKLE` can be multiple (e.g. actionness predicted from both streams)
