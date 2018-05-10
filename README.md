@@ -172,9 +172,16 @@ python binary_test.py DATASET MODALITY SUBSET TRAINING_CHECKPOINT ACTIONNESS_RES
 ```
 
 ### Generating TAG proposals
+thumos14
 ```bash
-python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset DATASET --subset SUBSET  --write_proposals TAG_PROPOSALS  --frame_path FRAME_PATH
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset thumos14 --subset validation  --write_proposals data/thumos14_tag_val_proposal_list.txt  --frame_path FRAME_PATH
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset thumos14 --subset testing  --write_proposals data/thumos14_tag_test_proposal_list.txt  --frame_path FRAME_PATH
 ``` 
+Activitynet1.2
+```bash
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet1.2 --subset training  --write_proposals data/activitynet1.2_tag_train_proposal_list.txt  --frame_path FRAME_PATH
+python gen_bottom_up_proposals.py ACTIONNESS_RESULT_PICKLE --dataset activitynet1.2 --subset validation  --write_proposals data/activitynet1.2_tag_val_proposal_list.txt  --frame_path FRAME_PATH
+```
 
 where `ACTIONNESS_RESULTS_PICKLE` can be multiple (e.g. actionness predicted from both streams)
 
