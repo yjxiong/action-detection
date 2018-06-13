@@ -1,6 +1,5 @@
 import argparse
 import time
-
 import numpy as np
 
 from ssn_dataset import SSNDataSet
@@ -12,7 +11,7 @@ from terminaltables import *
 
 import sys
 sys.path.append('./anet_toolkit/Evaluation')
-from eval_detection import compute_average_precision_detection
+from anet_toolkit.Evaluation.eval_detection import compute_average_precision_detection
 from ops.utils import softmax
 import os
 import pickle
@@ -218,11 +217,7 @@ ap_values = np.empty((num_class, len(iou_range)))
 
 
 def eval_ap(iou, iou_idx, cls, gt, predition):
-    # print(gt)
-    # exit()
     ap = compute_average_precision_detection(gt, predition, iou)
-
-    # print("class {} @ iou threshold {} AP: {}".format(cls, iou, ap))
     sys.stdout.flush()
     return cls, iou_idx, ap
 
@@ -235,13 +230,10 @@ pool = Pool(args.ap_workers)
 jobs = []
 for iou_idx, min_overlap in enumerate(iou_range):
     for cls in range(num_class):
-        jobs.append(pool.apply_async(eval_ap, args=([min_overlap], iou_idx, cls, gt_by_cls[cls], plain_detections[cls]),
-                               callback=callback))
-        # print(eval_ap([min_overlap], iou_idx, cls, gt_by_cls[cls], plain_detections[cls]))
+        jobs.append(pool.apply_async(eval_ap, args=([min_overlap], iou_idx, cls, gt_by_cls[cls], plain_detections[cls],),callback=callback))
 pool.close()
 pool.join()
 print("Evaluation done.\n\n")
-
 map_iou = ap_values.mean(axis=0)
 display_title = "Detection Performance on {}".format(args.dataset)
 

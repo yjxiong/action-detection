@@ -7,6 +7,10 @@ def get_configs(dataset):
     data = yaml.load(open('data/dataset_cfg.yaml'))
     return data[dataset]
 
+def get_actionness_configs(dataset):
+    data = yaml.load(open('data/dataset_actionness_cfg.yaml'))
+    return data[dataset]
+
 
 def get_reference_model_url(dataset, modality, init, arch):
     data = yaml.load(open('data/reference_models.yaml'))

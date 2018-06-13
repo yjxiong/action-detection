@@ -1,0 +1,14 @@
+video_test_0001496 CricketShot
+video_test_0000798 CricketBowling
+video_test_0000270 HammerThrow
+video_test_0001194 CricketBowling
+video_test_0000622 CricketBowling
+video_test_0000392 CricketShot
+video_test_0000569 CricketShot
+video_test_0001313 CricketShot
+video_test_0001164 CleanAndJerk
+video_test_0000786 CricketShot
+video_test_0001468 CleanAndJerk
+video_test_0000549 CricketShot
+video_test_0001358 CricketBowling
+video_test_0000367 HighJump

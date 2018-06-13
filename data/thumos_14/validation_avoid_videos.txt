@@ -1,0 +1,7 @@
+video_validation_0000178 CricketShot
+video_validation_0000932 GolfSwing
+video_validation_0000173 CricketShot
+video_validation_0000665 LongJump
+video_validation_0000183 CricketBowling
+video_validation_0000786 ThrowDiscus
+video_validation_0000171 CricketShot

@@ -1,0 +1,67 @@
+thumos14:
+  train_list: thumos14_sw_val
+  test_list: thumos14_sw_test
+  num_class: 2
+  sampling:
+    fg_iou_thresh: 0.7
+    bg_iou_thresh: 0.01
+    incomplete_iou_thresh: 0.3
+    bg_coverage_thresh: 0.02
+    incomplete_overlap_thresh: 0.01 # on THUMOS14 we include more incomplete samples
+    prop_per_video: 8
+    fg_ratio: 1
+    bg_ratio: 1
+    incomplete_ratio: 6
+
+  evaluation:
+    top_k: 2000
+    nms_threshold: 0.2
+    softmax_before_filter: true
+
+  stpp: [1, 1, 1]
+
+  flow_init:
+    BNInception: https://yjxiong.blob.core.windows.net/ssn-models/bninception_thumos_flow_init-89dfeaf803e.pth
+    InceptionV3: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_thumos_flow_init-0527856bcec6.pth
+  kinetics_pretrain:
+    BNInception:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-models/bninception_rgb_kinetics_init-d4ee618d3399.pth
+      Flow: https://yjxiong.blob.core.windows.net/ssn-models/bninception_flow_kinetics_init-1410c1ccb470.pth
+    InceptionV3:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_rgb_kinetics_init-c42e70a05e22.pth
+      Flow: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_flow_kinetics_init-374d56ea4e66.pth
+
+activitynet1.2:
+  train_list: activitynet1.2_sw_train
+  test_list: activitynet1.2_sw_val
+  num_class: 100
+  sampling:
+    fg_iou_thresh: 0.7
+    bg_iou_thresh: 0.01
+    incomplete_iou_thresh: 0.3
+    bg_coverage_thresh: 0.02
+    incomplete_overlap_thresh: 0.7
+    prop_per_video: 8
+    fg_ratio: 1
+    bg_ratio: 1
+    incomplete_ratio: 6
+
+  stpp: [1, 1, 1]
+
+  evaluation:
+    top_k: 60
+    nms_threshold: 0.6
+    softmax_before_filter: false
+
+  flow_init:
+    BNInception: https://yjxiong.blob.core.windows.net/ssn-models/bninception_activitynet1.2_flow_init-0090e716bd1563.pth
+    InceptionV3: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_activitynet1.2_flow_init-cd9437aaedfb.pth
+  kinetics_pretrain:
+    BNInception:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-models/bninception_rgb_kinetics_init-d4ee618d3399.pth
+      Flow: https://yjxiong.blob.core.windows.net/ssn-models/bninception_flow_kinetics_init-1410c1ccb470.pth
+    InceptionV3:
+      RGB: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_rgb_kinetics_init-c42e70a05e22.pth
+      Flow: https://yjxiong.blob.core.windows.net/ssn-models/inceptionv3_flow_kinetics_init-374d56ea4e66.pth
+
+
