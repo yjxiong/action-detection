@@ -28,6 +28,7 @@ A predecessor of the SSN framework was presented in
       * [Pretrained Models](#pretrained-models)
    * [Extract Frames and Optical Flow Images](#extract-frames-and-optical-flow-images)
    * [Prepare the Proposal Lists](#prepare-the-proposal-lists)
+   * [Train TAG Proposal Models](#train-tag-models)
    * [Testing Trained Models](#testing-trained-models)
       * [Evaluating on benchmark datasets](#evaluating-on-benchmark-datasets)
       * [Using reference models for evaluation](#using-reference-models-for-evaluation)
