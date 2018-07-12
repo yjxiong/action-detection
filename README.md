@@ -53,6 +53,7 @@ A predecessor of the SSN framework was presented in
 The training and testing in SSN is reimplemented in PyTorch for the ease of use. 
 We need the following software to run SSN.
 
+- Python3
 - [PyTorch][pytorch]
 - [DenseFlow][df] (for frame extraction & optical flow)
                    
