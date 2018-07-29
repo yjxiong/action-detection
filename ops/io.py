@@ -22,8 +22,6 @@ def load_proposal_file(filename):
 
         gt_boxes = [x.split() for x in info[offset:offset+n_gt]]
         offset += n_gt
-        if n_gt == 0:
-            offset += 1
         n_pr = int(info[offset])
         offset += 1
         pr_boxes = [x.split() for x in info[offset:offset+n_pr]]
