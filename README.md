@@ -136,7 +136,7 @@ python gen_proposal_list.py DATASET FRAMES_PATH
 
 
 ## Train TAG models
-Due to a large amount of inquiry for the training of TAG, we provide the following procedures to train binary actionness classifiers and generate proposals.
+Due to a large amount of inquiry for the training of TAG, we provide the following procedures to train binary actionness classifiers and generate proposals. 
 
 ### Generate sliding window proposals 
 First of all, we generate a series of sliding-window proposals.
@@ -168,6 +168,10 @@ python binary_train.py activitynet1.2 MODALITY -b 16 --lr_steps 3 6 --epochs 7
 ```
 
 ### Obtaining actionness score
+
+Pretrained actionness classifier on THUMOS14 can be downloaded from 
+[RGB Actionness Model](https://s3-us-west-2.amazonaws.com/awscv-public-data/ssn-actionness/binaryclassifier_thumos14_BNInception_rgb_checkpoint.pth.tar) and 
+[Flow Actionness Model](https://s3-us-west-2.amazonaws.com/awscv-public-data/ssn-actionness/binaryclassifier_thumos14_BNInception_flow_checkpoint.pth.tar)
 
 ```bash
 python binary_test.py DATASET MODALITY SUBSET TRAINING_CHECKPOINT ACTIONNESS_RESULT_PICKLE 
