@@ -126,9 +126,9 @@ def dump_window_list(video_info, named_proposals, frame_path, name_pattern, allo
         overlap_self = pr[2]
         dump_proposals.append('{} {:.04f} {:.04f} {} {}'.format(label, overlap, overlap_self, real_start, real_end))
 
-    ret_str = '{path}\n{duration}\n{fps}\n{num_gt}\n{gts}\n{num_window}\n{prs}\n'.format(
+    ret_str = '{path}\n{duration}\n{fps}\n{num_gt}\n{gts}{num_window}\n{prs}\n'.format(
         path=os.path.join(frame_path, video_name), duration=frame_cnt, fps=1,
-        num_gt=len(dump_gt), gts='\n'.join(dump_gt),
+        num_gt=len(dump_gt), gts='\n'.join(dump_gt) + ('\n' if len(dump_gt) else ''),
         num_window=len(dump_proposals), prs='\n'.join(dump_proposals))
 
     return ret_str
