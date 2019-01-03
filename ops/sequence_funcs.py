@@ -131,6 +131,6 @@ def build_box_by_search(frm_label_lst, tol, min=1):
                         boxes.append((up[y+1], down[x] + 1, cls, sum(frm_scores[up[y+1]:down[x] + 1])))
                         break
                 else:
-                    boxes.append((up[0], down[x] + 1, cls, sum(frm_scores[0]:down[x]+1 + 1])))
+                    boxes.append((up[0], down[x] + 1, cls, sum(frm_scores[0:down[x]+1 + 1])))
 
     return boxes
