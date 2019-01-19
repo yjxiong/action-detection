@@ -143,7 +143,7 @@ class BinaryDataSet(data.Dataset):
 
         for v in self.video_list:
             self.fg_pool.extend([(v.id, prop) for prop in v.get_fg(self.fg_iou_thresh, self.gt_as_fg)])
-            self.bg_pool.extend([(v.id, prop) for prop in v.get_bg(self.fg_iou_thresh)])
+            self.bg_pool.extend([(v.id, prop) for prop in v.get_bg(self.bg_iou_thresh)])
 
         if self.verbose:
             print("""

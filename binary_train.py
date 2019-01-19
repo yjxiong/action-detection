@@ -114,7 +114,7 @@ def main():
     binary_criterion = torch.nn.CrossEntropyLoss().cuda()
 
     for group in policies:
-        print(('group: {} has params, lr_mult: {}, decay_mult: {}'.format(
+        print(('group: {} has {} params, lr_mult: {}, decay_mult: {}'.format(
             group['name'], len(group['params']), group['lr_mult'], group['decay_mult'])))
 
 
@@ -189,15 +189,15 @@ def train(train_loader, model, criterion, optimizer, epoch):
                     for p in g['params']:
                         p.grad /= args.iter_size
 
-        if args.clip_gradient is not None:
-            total_norm = clip_grad_norm(model.parameters(), args.clip_gradient)
-            if total_norm > args.clip_gradient:
-                print('Clipping gradient: {} with coef {}'.format(total_norm, args.clip_gradient / total_norm))
-        else:
-            total_norm = 0
-
-        optimizer.step()
-        optimizer.zero_grad()
+            if args.clip_gradient is not None:
+                total_norm = clip_grad_norm(model.parameters(), args.clip_gradient)
+                if total_norm > args.clip_gradient:
+                    print('Clipping gradient: {} with coef {}'.format(total_norm, args.clip_gradient / total_norm))
+            else:
+                total_norm = 0
+    
+            optimizer.step()
+            optimizer.zero_grad()
 
         # measure elapsed time
         batch_time.update(time.time() - end)
@@ -248,7 +248,7 @@ def validate(val_loader, model, criterion, iter):
 
         if i % args.print_freq == 0:
             print('Test: [{0}/{1}]\t'
-                  'Time {batch_time.val:.4f} ({loss.avg:.4f})\t'
+                  'Time {batch_time.val:.4f} ({batch_time.avg:.4f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'FG {fg_acc.val:.02f} BG {bg_acc.val:.02f}'.format(
                   i, len(val_loader), batch_time=batch_time, loss=losses,
