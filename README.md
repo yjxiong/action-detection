@@ -3,7 +3,7 @@
 ### [Project Website][ssn]
 
 
-*We have released [MMAction](https://github.com/open-mmlab/mmaction), a full-fledged action understanding toolbox based on PyTorch. It includes implementation for SSN as well as other STOA frameworks for various tasks (action classification, temporal action detection, and spatial-temporal action detection). The lessons we learned in this repo are incorporated into MMAction to make it bettter. We highly recommend you switch to it. This repo will keep on being supported without further notice.*
+**Note**: *We have released [MMAction](https://github.com/open-mmlab/mmaction), a full-fledged action understanding toolbox based on PyTorch. It includes implementation for SSN as well as other STOA frameworks for various tasks (action classification, temporal action detection, and spatial-temporal action detection). The lessons we learned in this repo are incorporated into MMAction to make it bettter. We highly recommend you switch to it. This repo will keep on being supported without further notice.*
 
 *****
 
